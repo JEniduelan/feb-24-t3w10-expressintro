@@ -8,7 +8,16 @@ const app = express();
 // .get("/", (req, res) => {})
 // .get("/", (banana, elephant) => {})
 app.get("/", (request, response) => {
-	response.send("<h1>Hello world!</h1>");
+	// response.send("<h1>Hello world!</h1>");
+    response.json({
+        message:"Hello World!"
+    });
+});
+
+app.post("/", (request, response) => {
+    response.json({
+        message: "POST request received!"
+    });
 });
 
 const PORT = 3000;
