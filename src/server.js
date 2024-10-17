@@ -4,6 +4,30 @@ const express = require("express");
 // eg. routes, settings
 const app = express();
 
+// Configure the app instance for whatever we need
+
+app.use(express.json());
+
+
+
+
+
+// And THEN set up the routes!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // GET localhost:3000/ 
 // .get("/", (req, res) => {})
 // .get("/", (banana, elephant) => {})
@@ -47,7 +71,13 @@ app.post("/", xanderMiddleware, (request, response) => {
 });
 
 // http://localhost:3000/bananas
-app.post("/bananas", (request, response, next) => {console.log("Bananas route has run"); next();}, (request, response) => {
+app.post(
+	"/bananas", 
+	(request, response, next) => {
+		console.log("Bananas route has run"); 
+		next();
+	}, 
+	(request, response) => {
 	response.json({
 		message: "POST bananas received!"
 	});
@@ -57,6 +87,10 @@ const PokemonController = require("./controllers/pokemonController.js");
 // const {pokemonRouter} = require("blah blah")
 // localhost:3000/pokemon/
 app.use("/pokemon", PokemonController);
+
+const UserController = require("./controllers/userController.js");
+// domainName:port/users
+app.use("/users", UserController);
 
 module.exports = {
 	app
