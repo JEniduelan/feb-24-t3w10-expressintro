@@ -9,12 +9,13 @@ const app = express();
 // .get("/", (banana, elephant) => {})
 
 /*
-	intance.verb(routePath,
-	midleware,
-	midleware,
-	midleware,
-	midleware,
+instance.verb(routePath,
+	middleware 1,
+	middleware 2,
+	middleware 3,
+	middleware 4,
 	route handler
+	)
 */
 
 function xanderMiddleware (request, response, next){
@@ -28,25 +29,25 @@ function xanderMiddleware (request, response, next){
 	next();
 }
 
-app.get("/",
+app.get("/", 
 	// middleware function goes here
 	xanderMiddleware,
 	(request, response) => {
 	// response.send("<h1>Hello world!</h1>");
 	response.json({
 		message:"Hello world!",
-		customStuff: response.coolCoderAcademyStuff
+		customStuff: request.coolCoderAcademyStuff
 	});
 });
 
-app.post("/", (request, response) => {
+app.post("/", xanderMiddleware, (request, response) => {
 	response.json({
 		message: "POST request received!"
 	});
 });
 
 // http://localhost:3000/bananas
-app.post("/bananas", (request, response) => {
+app.post("/bananas", (request, response, next) => {console.log("Bananas route has run"); next();}, (request, response) => {
 	response.json({
 		message: "POST bananas received!"
 	});
